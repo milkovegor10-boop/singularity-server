@@ -4,63 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Singularity | Minecraft Server</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
     <header class="hero">
-        <h1>SINGULARITY</h1>
-        <p class="tagline">Singularity icy Minecraft server. Team, atmosphere, content.</p>
+        <div class="hero-content">
+            <h1>SINGULARITY</h1>
+            <p class="tagline">Atmospheric Minecraft Server. Community, Development, Hardcore.</p>
 
-        <div class="server-status">
-            <span class="status-dot"></span>
-            Онлайн: <span id="player-count">Загрузка...</span>
+            <div class="server-status">
+                <span class="status-dot"></span>
+                <span class="status-text">Онлайн: <strong id="player-count">Загрузка...</strong></span>
+            </div>
+            
+            <div class="btn-container">
+                <a href="#" class="btn btn-discord">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.094 13.094 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.077.077 0 0 1-.006.127 12.298 12.298 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></svg>
+                    Discord
+                </a>
+                <a href="https://t.me/+3TkrI7-Yq_0wZDky" class="btn btn-telegram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0C5.347 0 0 5.347 0 11.944c0 5.276 3.407 9.757 8.118 11.322.1.018.136-.043.136-.096 0-.047-.002-.172-.003-.338-3.322.721-4.023-1.602-4.023-1.602-.543-1.381-1.327-1.748-1.327-1.748-1.084-.741.082-.726.082-.726 1.199.084 1.83 1.231 1.83 1.231 1.065 1.825 2.795 1.298 3.476.993.108-.771.418-1.297.761-1.595-2.652-.301-5.44-1.325-5.44-5.902 0-1.304.465-2.37 1.229-3.206-.123-.303-.532-1.517.117-3.161 0 0 1.003-.322 3.287 1.225.953-.265 1.97-.399 2.983-.404 1.013.005 2.03.139 2.985.404 2.282-1.547 3.282-1.225 3.282-1.225.651 1.644.242 2.858.12 3.161.766.836 1.227 1.902 1.227 3.206 0 4.59-2.792 5.597-5.454 5.892.429.37.813 1.102.813 2.221 0 1.604-.015 2.896-.015 3.289 0 .054.035.116.138.095 4.707-1.567 8.11-6.046 8.11-11.322C23.888 5.347 18.54 0 11.944 0z"/></svg>
+                    Telegram
+                </a>
+            </div>
         </div>
-        
-        <div class="btn-container">
-            <a href="#" class="btn btn-discord">Discord</a>
-            <a href="https://t.me/+3TkrI7-Yq_0wZDky" class="btn btn-telegram">Telegram</a>
-        </div>
-
         <div class="scroll-down" id="scrollBtn">↓</div>
     </header>
 
     <section class="news-section" id="news">
         <h2 class="section-title">Новости проекта</h2>
+        <p class="section-subtitle">Свежие события, патчноуты и важные объявления</p>
         
         <div class="news-container">
             <div class="news-card" data-description="Мы рады объявить об официальном открытии нового сезона на сервере Singularity! Вас ждут обновленные механики, улучшенная стабильность, уникальные ивенты и полностью чистый мир для выживания. Присоединяйтесь к нам прямо сейчас через Discord или Telegram!">
-                <div class="news-badge badge-update">Обновление</div>
-                <div class="news-date">13 Июн 2026</div>
+                <div class="news-header-meta">
+                    <span class="news-badge badge-update">Обновление</span>
+                    <span class="news-date">13 Июн 2026</span>
+                </div>
                 <h3 class="news-title">Глобальный вайп и открытие сезона!</h3>
                 <p class="news-preview">Долгожданное событие свершилось. Новый чистый мир, переработанный баланс и масса крутого контента ждут вас...</p>
-                <span class="news-more">Читать далее →</span>
+                <span class="news-more">Читать далее</span>
             </div>
 
             <div class="news-card" data-description="В эти выходные на сервере пройдет масштабный ивент 'Битва за Цитадель'. Игрокам предстоит разделиться на команды, штурмовать защищенную крепость и захватить главный артефакт. Победители получат уникальные кастомные предметы и памятные знаки в профиль!">
-                <div class="news-badge badge-event">Ивент</div>
-                <div class="news-date">11 Июн 2026</div>
+                <div class="news-header-meta">
+                    <span class="news-badge badge-event">Ивент</span>
+                    <span class="news-date">11 Июн 2026</span>
+                </div>
                 <h3 class="news-title">Ивент: Битва за Цитадель</h3>
                 <p class="news-preview">Собирайте экипировку и объединяйтесь в кланы. Уже в эту субботу решится, кто станет самым сильным отрядом сезона...</p>
-                <span class="news-more">Читать далее →</span>
+                <span class="news-more">Читать далее</span>
             </div>
 
             <div class="news-card" data-description="Наш технический администратор провел оптимизацию серверного ядра. Была увеличена дальность прорисовки, исправлены баги с редстоун-схемами и снижена нагрузка от ферм. Теперь FPS станет еще стабильнее, а задержки (TPS) сведены к минимуму!">
-                <div class="news-badge badge-tech-news">Техническое</div>
-                <div class="news-date">08 Июн 2026</div>
+                <div class="news-header-meta">
+                    <span class="news-badge badge-tech-news">Техническое</span>
+                    <span class="news-date">08 Июн 2026</span>
+                </div>
                 <h3 class="news-title">Оптимизация ядра и подъем TPS</h3>
                 <p class="news-preview">Мы провели масштабные работы по устранению лагов. Играть на сервере теперь еще комфортнее и приятнее...</p>
-                <span class="news-more">Читать далее →</span>
+                <span class="news-more">Читать далее</span>
             </div>
         </div>
     </section>
 
     <section class="team-section" id="team">
-        <h2 class="section-title">Состав</h2>
+        <h2 class="section-title">Состав команды</h2>
+        <p class="section-subtitle">Те, кто создают атмосферу и следят за порядком</p>
         
         <div class="cards-grid">
             <div class="card card-orange" data-description="Создатель сервера. Занимаюсь технической частью и развитием проекта.">
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/CloverS_Kid" alt="CloverS_Kid" class="avatar">
                 <div class="username">CloverS_Kid</div>
                 <div class="badges">
@@ -70,12 +89,14 @@
             </div>
 
             <div class="card card-green" data-description="Опытный игрок и активный участник сообщества Singularity.">
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/MR0zdi" alt="MR0zdi" class="avatar">
                 <div class="username">MR0zdi</div>
                 <div class="badges"><span class="badge badge-player">Player</span></div>
             </div>
 
             <div class="card card-purple" data-description="Наш медиа-партнер. Снимает крутые ролики на YouTube!"> 
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/LainBerg" alt="LainBerg" class="avatar">
                 <div class="username">LainBerg</div>
                 <div class="badges">
@@ -85,54 +106,63 @@
             </div>
 
             <div class="card card-green" data-description="Мастер выживания и строительства ферм.">
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/EnderHack1" alt="EnderHack1" class="avatar">
                 <div class="username">EnderHack1</div>
                 <div class="badges"><span class="badge badge-player">Player</span></div>
             </div>
 
             <div class="card card-green" data-description="Игрок, который всегда готов помочь новичкам.">
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/AshN1ght" alt="AshN1ght" class="avatar">
                 <div class="username">AshN1ght</div>
                 <div class="badges"><span class="badge badge-player">Player</span></div>
             </div>
 
             <div class="card card-green" data-description="Участник команды Singularity. Любит исследовать мир.">
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/Folksy13_dll" alt="Folksy13_dll" class="avatar">
                 <div class="username">Folksy13_dll</div>
                 <div class="badges"><span class="badge badge-player">Player</span></div>
             </div>
 
             <div class="card card-green" data-description="Постоянный игрок сервера с отличным чувством юмора.">
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/g6thblood" alt="g6thblood" class="avatar">
                 <div class="username">g6thblood</div>
                 <div class="badges"><span class="badge badge-player">Player</span></div>
             </div>
 
             <div class="card card-green" data-description="Активный строитель и торговец на сервере.">
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/ba1toss" alt="ba1toss" class="avatar">
                 <div class="username">ba1toss</div>
                 <div class="badges"><span class="badge badge-player">Player</span></div>
             </div>
 
             <div class="card card-green" data-description="Игрок, знающий все тонкости механик Minecraft.">
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/horHyplace" alt="horHyplace" class="avatar">
                 <div class="username">horHyplace</div>
                 <div class="badges"><span class="badge badge-player">Player</span></div>
             </div>
 
             <div class="card card-green" data-description="Позитивный игрок и создатель уютных построек.">
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/MrKhazinack" alt="MrKhazinack" class="avatar">
                 <div class="username">MrKhazinack</div>
                 <div class="badges"><span class="badge badge-player">Player</span></div>
             </div>
 
             <div class="card card-green" data-description="Участник сервера, который ценит атмосферу и контент.">
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/CHOMeQ418" alt="CHOMeQ418" class="avatar">
                 <div class="username">CHOMeQ418</div>
                 <div class="badges"><span class="badge badge-player">Player</span></div>
             </div>
 
             <div class="card card-green" data-description="Игрок, делающий сервер Singularity чуточку лучше каждый день.">
+                <div class="card-glow"></div>
                 <img src="https://mc-heads.net/avatar/Maksimm205" alt="Maksimm205" class="avatar">
                 <div class="username">Maksimm205</div>
                 <div class="badges"><span class="badge badge-player">Player</span></div>
@@ -140,24 +170,37 @@
         </div>
     </section>
 
-    <div class="chat-toggle" id="chatBtn">💬</div>
+    <div class="chat-toggle" id="chatBtn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </div>
+    
     <div class="chat-window" id="chatWindow">
         <div class="chat-header">
-            <span>Чат поддержки</span>
+            <div class="chat-title-block">
+                <span class="chat-dot-online"></span>
+                <span>Поддержка Singularity</span>
+            </div>
             <button class="close-chat" id="closeChat">&times;</button>
         </div>
-        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-body" id="chatBody">
+            <div class="message system">Привет! Есть вопросы или проблемы с заходом? Напиши нам сюда, админы ответят прямо в этот чат!</div>
+        </div>
         <div class="chat-footer">
-            <input type="text" id="chatInput" placeholder="Введите сообщение...">
-            <button class="send-btn" onclick="sendToTg()">➔</button>
+            <input type="text" id="chatInput" placeholder="Ваш вопрос...">
+            <button class="send-btn" onclick="sendToTg()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
         </div>
     </div>
 
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-card">
             <button class="modal-close" id="modalClose">&times;</button>
-            <img src="" id="modalAvatar" class="modal-avatar">
+            <div class="modal-img-wrapper">
+                <img src="" id="modalAvatar" class="modal-avatar">
+            </div>
             <h3 id="modalUsername">Username</h3>
+            <div class="modal-divider"></div>
             <p class="modal-description">Описание загружается...</p>
         </div>
     </div>
