@@ -9,19 +9,24 @@
 </head>
 <body>
 
+    <!-- --- ФОНОВЫЕ СВЕЧЕНИЯ --- -->
     <div class="bg-glow glow-1"></div>
     <div class="bg-glow glow-2"></div>
 
+    <!-- --- HERO SECTION --- -->
     <header class="hero">
         <div class="hero-content">
             <h1>SINGULARITY</h1>
             <p class="tagline">Atmospheric Minecraft Server. Community, Development, Hardcore.</p>
 
+            <!-- Жестко зафиксированный контейнер статуса -->
             <div class="server-status-container">
                 <div class="server-status">
                     <span class="status-dot"></span>
                     <span class="status-text">Онлайн: <strong id="player-count">Загрузка...</strong></span>
                 </div>
+                <!-- Контейнер для голов изначально встроен сюда и не ломает флексы -->
+                <div id="online-heads" style="display: none;"></div>
             </div>
             
             <div class="btn-container">
@@ -38,6 +43,7 @@
         <div class="scroll-down" id="scrollBtn">↓</div>
     </header>
 
+    <!-- --- РАЗДЕЛ НОВОСТЕЙ --- -->
     <section class="news-section" id="news">
         <h2 class="section-title">Главное событие</h2>
         <p class="section-subtitle">Важное объявление от администрации проекта</p>
@@ -58,6 +64,7 @@
         </div>
     </section>
 
+    <!-- --- СЕТКА КАРТОЧЕК КОМАНДЫ --- -->
     <section class="team-section" id="team">
         <h2 class="section-title">Состав проекта</h2>
         <p class="section-subtitle">Те, кто создают атмосферу и развивают мир Singularity</p>
@@ -183,6 +190,7 @@
         </div>
     </section>
 
+    <!-- --- КНОПКА И ОКНО ЧАТА ПОДДЕРЖКИ --- -->
     <button class="chat-toggle" id="chatBtn" aria-label="Открыть чат поддержки">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
     </button>
@@ -206,6 +214,7 @@
         </div>
     </div>
 
+    <!-- --- УНИВЕРСАЛЬНОЕ МОДАЛЬНОЕ ОКНО --- -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-card">
             <button class="modal-close" id="modalClose">&times;</button>
