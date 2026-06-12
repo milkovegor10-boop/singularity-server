@@ -47,13 +47,13 @@ body {
     transform: translateY(-20px); 
     display: flex;
     flex-direction: column;
-    align-items: center; /* Четкая центровка контента */
+    align-items: center; 
     justify-content: center;
     width: 100%;
 }
 h1 { 
     font-size: clamp(2.8rem, 9vw, 6rem); font-weight: 900; letter-spacing: 15px; 
-    margin-bottom: 15px; text-transform: uppercase; text-indent: 15px; /* Коррекция сдвига из-за letter-spacing */
+    margin-bottom: 15px; text-transform: uppercase; text-indent: 15px; 
     background: linear-gradient(135deg, #fff 30%, rgba(255,255,255,0.5) 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.15));
@@ -67,8 +67,9 @@ h1 {
 /* СТАТУС ОНЛАЙНА */
 .server-status-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     margin-bottom: 5px;
 }
@@ -76,6 +77,7 @@ h1 {
     display: inline-flex; align-items: center; gap: 12px; padding: 10px 24px;
     background: rgba(255, 255, 255, 0.03); border-radius: 50px; 
     border: 1px solid var(--card-border); backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 .status-dot { 
@@ -90,7 +92,8 @@ h1 {
     display: flex; flex-wrap: wrap; justify-content: center; gap: 6px;
     margin: 15px auto 0 auto; padding: 10px; background: rgba(255, 255, 255, 0.02);
     border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px); max-width: fit-content; min-height: 44px; transition: 0.4s;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    max-width: fit-content; min-height: 44px; transition: 0.4s;
 }
 .online-player-head {
     width: 32px; height: 32px; border-radius: 6px;
@@ -120,7 +123,7 @@ h1 {
 .section-title { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 8px; text-align: center; }
 .section-subtitle { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 45px; font-weight: 400; text-align: center; }
 
-/* --- РАЗДЕЛ НОВОСТЕЙ: ПОЛНОРАЗМЕРНАЯ ПЛАШКА --- */
+/* --- РАЗДЕЛ НОВОСТЕЙ --- */
 .news-section { padding: 90px 24px 30px 24px; max-width: 1200px; margin: 0 auto; }
 .news-wide-container { width: 100%; margin-top: 20px; display: flex; justify-content: center; }
 
@@ -152,18 +155,16 @@ h1 {
 .news-more { font-size: 0.95rem; font-weight: 700; color: var(--real-cyan); position: relative; padding-right: 15px; transition: 0.3s; }
 .news-more::after { content: ' →'; position: absolute; right: 0; transition: 0.3s; }
 .massive-card:hover .news-more::after { right: -5px; }
-
-/* Эффект блика */
 .massive-card::after { content: ''; position: absolute; top: 0; left: -100%; width: 30%; height: 100%; background: linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.04), transparent); transition: 0.7s; }
 .massive-card:hover::after { left: 150%; }
 
-/* --- СЕТКА КОМАНДЫ (ЦЕНТРИРОВАННАЯ И МОДЕРНИЗИРОВАННАЯ) --- */
+/* --- СЕТКА КОМАНДЫ --- */
 .team-section { padding: 90px 24px; max-width: 1200px; margin: 0 auto; }
 .cards-grid { 
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
     gap: 30px; 
-    justify-content: center; /* Центрирование карточек, если строка не заполнена */
+    justify-content: center; 
 }
 .card { 
     background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; 
