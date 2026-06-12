@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!headContainer && statusBox) {
                         headContainer = document.createElement('div');
                         headContainer.id = 'online-heads';
-                        // Вставляем строго по центру под блоком онлайна
                         statusBox.parentNode.insertBefore(headContainer, statusBox.nextSibling);
                     }
                     
@@ -95,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Слушатели кликов для карточек игроков
     document.querySelectorAll('.cards-grid .card').forEach(card => {
         card.onclick = (e) => {
-            if (e.target.closest('a')) return; // Игнорируем клик по ссылкам соцсетей (например, YouTube)
+            if (e.target.closest('a')) return; 
             const username = card.querySelector('.username').innerText;
             const avatar = card.querySelector('.avatar').src;
             const desc = card.getAttribute('data-description') || "Участник сервера Singularity.";
