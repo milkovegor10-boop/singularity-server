@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // === КОНФИГ ===
+    // === КОНФИГ СЕРВЕРА ===
     const IP = '5.83.140.250';
     const PORT = '25757';
     const TG_TOKEN = '8679920729:AAEnd-Nxe9moClDCo2WO8ZXIM8Caxi2XR3M';
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let sentMessagesIds = []; 
     let isCooldown = false;
 
-    // Скролл
+    // Скролл к новостям
     if (scrollBtn) {
         scrollBtn.onclick = () => {
             const newsSection = document.getElementById('news');
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Онлайн и головы
+    // Запрос статуса Minecraft и рендер скинов голов
     const updateOnline = () => {
         if (!playerCount) return;
 
@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!headContainer && statusBox) {
                         headContainer = document.createElement('div');
                         headContainer.id = 'online-heads';
+                        // Вставляем строго по центру под блоком онлайна
                         statusBox.parentNode.insertBefore(headContainer, statusBox.nextSibling);
                     }
                     
@@ -51,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 img.src = `https://mc-heads.net/avatar/${p.name}/32`;
                                 img.className = 'online-player-head';
                                 img.title = p.name;
+                                img.alt = p.name;
                                 headContainer.appendChild(img);
                             });
                         } else {
@@ -62,13 +64,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const hc = document.getElementById('online-heads');
                     if (hc) hc.style.display = 'none';
                 }
-            }).catch(e => console.log("MC API Error:", e));
+            }).catch(e => console.error("MC API Error:", e));
     };
 
     updateOnline();
     setInterval(updateOnline, 30000);
 
-    // Модальное окно
+    // Модальное окно (Универсальное)
     const openModal = (title, description, avatarSrc = null) => {
         const modalUser = document.getElementById('modalUsername');
         const modalAv = document.getElementById('modalAvatar');
@@ -90,9 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden';
     };
 
-    document.querySelectorAll('.card').forEach(card => {
+    // Слушатели кликов для карточек игроков
+    document.querySelectorAll('.cards-grid .card').forEach(card => {
         card.onclick = (e) => {
-            if (e.target.closest('a')) return;
+            if (e.target.closest('a')) return; // Игнорируем клик по ссылкам соцсетей (например, YouTube)
             const username = card.querySelector('.username').innerText;
             const avatar = card.querySelector('.avatar').src;
             const desc = card.getAttribute('data-description') || "Участник сервера Singularity.";
@@ -100,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
+    // Слушатель клика для массивной плашки новостей
     document.querySelectorAll('.massive-card').forEach(nCard => {
         nCard.onclick = () => {
             const title = nCard.querySelector('.news-title').innerText;
@@ -108,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // Чат поддержки
+    // Отправка сообщений в Телеграм (Чат)
     const addMessage = (text, type) => {
         if (!chatBody) return;
         const msgDiv = document.createElement('div');
@@ -123,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(!text) return;
 
         if(isCooldown) {
-            addMessage("Подождите 5 секунд...", "system");
+            addMessage("Подождите немного перед отправкой...", "system");
             return;
         }
 
@@ -152,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 sentMessagesIds.push(data.result.message_id);
             }
         } catch(e) { 
-            addMessage("Ошибка сети.", "system"); 
+            addMessage("Ошибка соединения с сервером.", "system"); 
         }
     };
 
@@ -173,9 +177,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mClose) mClose.onclick = closeAll;
     if (cClose) cClose.onclick = closeAll;
     if (cBtn) cBtn.onclick = () => chatWin.classList.toggle('active');
-    if (modal) modal.onclick = (e) => { if(e.target === modal) closeAll(); };
+    
+    if (modal) {
+        modal.onclick = (e) => { if(e.target === modal) closeAll(); };
+    }
+    
     document.onkeydown = (e) => { if(e.key === "Escape") closeAll(); };
 
+    // Лонг-поллинг ответов из Телеграм-бота
     const checkTgUpdates = async () => {
         try {
             const r = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/getUpdates?offset=${lastUpdateId + 1}`);
@@ -188,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (msg && msg.text && msg.reply_to_message) {
                         const replyId = msg.reply_to_message.message_id;
                         if (sentMessagesIds.includes(replyId)) {
-                            addMessage(`Админ: ${msg.text}`, 'system');
+                            addMessage(`Администрация: ${msg.text}`, 'system');
                             sentMessagesIds = sentMessagesIds.filter(id => id !== replyId);
                         }
                     }
