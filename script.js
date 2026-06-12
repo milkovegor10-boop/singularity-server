@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     let lastUpdateId = 0;
     let sentMessagesIds = []; // Храним ID сообщений этого пользователя
-    let isCooldown = false;   // Флаг задержки для защиты от спама
+    let isCooldown = false;   // Флаг задержки
 
     // === СКРОЛЛ К НОВОСТЯМ ===
     if (scrollBtn) {
@@ -66,9 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     updateOnline();
-    setInterval(updateOnline, 30000); // Обновление каждые 30 секунд
+    setInterval(updateOnline, 30000);
 
-    // === 2. МОДАЛЬНОЕ ОКНО (УНИВЕРСАЛЬНОЕ: ДЛЯ ИГРОКОВ И НОВОСТЕЙ) ===
+    // === 2. МОДАЛЬНОЕ ОКНО ===
     const openModal = (title, description, avatarSrc = null) => {
         const modalUser = document.getElementById('modalUsername');
         const modalAv = document.getElementById('modalAvatar');
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalAv.src = avatarSrc;
                 modalAv.style.display = 'inline-block';
             } else {
-                modalAv.style.display = 'none'; // Скрываем блок аватарки, если открыта новость
+                modalAv.style.display = 'none'; // Убираем картинку для новостей
             }
         }
         
@@ -90,10 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden';
     };
 
-    // Открытие модалки при клике на игрока
+    // Клик по игрокам
     document.querySelectorAll('.card').forEach(card => {
         card.onclick = (e) => {
-            if (e.target.closest('a')) return; // Игнорируем клик, если нажали на ссылку YouTube
+            if (e.target.closest('a')) return;
             const username = card.querySelector('.username').innerText;
             const avatar = card.querySelector('.avatar').src;
             const desc = card.getAttribute('data-description') || "Участник сервера Singularity.";
@@ -101,16 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // Открытие модалки при клике на новость
-    document.querySelectorAll('.news-card').forEach(nCard => {
+    // Клик по массивной карточке новости
+    document.querySelectorAll('.massive-card').forEach(nCard => {
         nCard.onclick = () => {
             const title = nCard.querySelector('.news-title').innerText;
-            const desc = nCard.getAttribute('data-description') || "Полный текст новости готовится к публикации.";
+            const desc = nCard.getAttribute('data-description') || "Описание готовится.";
             openModal(title, desc, null);
         };
     });
 
-    // === 3. ЧАТ С ПОДДЕРЖКОЙ (TG BRIDGE) ===
+    // === 3. ЧАТ С ПОДДЕРЖКОЙ ===
     const addMessage = (text, type) => {
         if (!chatBody) return;
         const msgDiv = document.createElement('div');
@@ -132,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
         addMessage(text, 'user');
         chatInput.value = '';
         
-        // Кулдаун отправки
         isCooldown = true;
         chatInput.disabled = true; 
         setTimeout(() => { 
@@ -152,10 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await response.json();
             if(data.ok) {
-                sentMessagesIds.push(data.result.message_id); // Фиксируем ID сообщения для трекинга реплаев
+                sentMessagesIds.push(data.result.message_id);
             }
         } catch(e) { 
-            addMessage("Не удалось отправить сообщение. Ошибка сети.", "system"); 
+            addMessage("Ошибка сети.", "system"); 
         }
     };
 
@@ -163,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         chatInput.onkeypress = (e) => { if(e.key === 'Enter') window.sendToTg(); };
     }
 
-    // === 4. СЛУШАТЕЛИ ЗАКРЫТИЯ И ИНТЕРФЕЙСА ===
+    // === 4. ЗАКРЫТИЕ ===
     const closeAll = () => {
         if (modal) modal.classList.remove('active');
         if (chatWin) chatWin.classList.remove('active');
@@ -177,13 +176,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mClose) mClose.onclick = closeAll;
     if (cClose) cClose.onclick = closeAll;
     if (cBtn) cBtn.onclick = () => chatWin.classList.toggle('active');
-    
-    if (modal) {
-        modal.onclick = (e) => { if(e.target === modal) closeAll(); };
-    }
+    if (modal) modal.onclick = (e) => { if(e.target === modal) closeAll(); };
     document.onkeydown = (e) => { if(e.key === "Escape") closeAll(); };
 
-    // === 5. LONG-POLLING ПРОВЕРКА ОТВЕТОВ АДМИНА ===
+    // === 5. ПРОВЕРКА ОТВЕТОВ ИЗ ТГ ===
     const checkTgUpdates = async () => {
         try {
             const r = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/getUpdates?offset=${lastUpdateId + 1}`);
@@ -193,18 +189,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     lastUpdateId = u.update_id;
                     const msg = u.message;
 
-                    // Логика проверки: является ли сообщение ответом (reply) на наше сообщение с сайта
                     if (msg && msg.text && msg.reply_to_message) {
                         const replyId = msg.reply_to_message.message_id;
-                        
                         if (sentMessagesIds.includes(replyId)) {
                             addMessage(`Админ: ${msg.text}`, 'system');
-                            sentMessagesIds = sentMessagesIds.filter(id => id !== replyId); // Удаляем отработанный ID
+                            sentMessagesIds = sentMessagesIds.filter(id => id !== replyId);
                         }
                     }
                 });
             }
         } catch(e) {}
     };
-    setInterval(checkTgUpdates, 4000); // Опрос Telegram раз в 4 секунды
+    setInterval(checkTgUpdates, 4000);
 });
