@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let sentMessagesIds = []; 
     let isCooldown = false;
 
-    // Скролл к новостям
     if (scrollBtn) {
         scrollBtn.onclick = () => {
             const newsSection = document.getElementById('news');
@@ -24,28 +23,23 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Запрос статуса Minecraft и рендер скинов голов
+    // Безопасный рендер статуса
     const updateOnline = () => {
         if (!playerCount) return;
 
         fetch(`https://mcapi.us/server/status?ip=${IP}&port=${PORT}`)
             .then(r => r.json())
             .then(d => {
-                const statusBox = document.querySelector('.server-status');
+                let headContainer = document.getElementById('online-heads');
+                
                 if (d.online) {
                     playerCount.innerText = `${d.players.now} / ${d.players.max}`;
-                    let headContainer = document.getElementById('online-heads');
-                    
-                    if (!headContainer && statusBox) {
-                        headContainer = document.createElement('div');
-                        headContainer.id = 'online-heads';
-                        statusBox.parentNode.insertBefore(headContainer, statusBox.nextSibling);
-                    }
                     
                     if (headContainer) {
                         headContainer.innerHTML = ''; 
+                        
                         if (d.players.sample && d.players.sample.length > 0) {
-                            headContainer.style.display = 'flex';
+                            headContainer.style.display = 'flex'; 
                             d.players.sample.forEach(p => {
                                 const img = document.createElement('img');
                                 img.src = `https://mc-heads.net/avatar/${p.name}/32`;
@@ -55,13 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
                                 headContainer.appendChild(img);
                             });
                         } else {
-                            headContainer.style.display = 'none';
+                            headContainer.style.display = 'none'; 
                         }
                     }
                 } else {
                     playerCount.innerText = "Offline";
-                    const hc = document.getElementById('online-heads');
-                    if (hc) hc.style.display = 'none';
+                    if (headContainer) headContainer.style.display = 'none';
                 }
             }).catch(e => console.error("MC API Error:", e));
     };
@@ -69,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateOnline();
     setInterval(updateOnline, 30000);
 
-    // Модальное окно (Универсальное)
     const openModal = (title, description, avatarSrc = null) => {
         const modalUser = document.getElementById('modalUsername');
         const modalAv = document.getElementById('modalAvatar');
@@ -87,11 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        modal.classList.add('active');
+        if (modal) modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     };
 
-    // Слушатели кликов для карточек игроков
     document.querySelectorAll('.cards-grid .card').forEach(card => {
         card.onclick = (e) => {
             if (e.target.closest('a')) return; 
@@ -102,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // Слушатель клика для массивной плашки новостей
     document.querySelectorAll('.massive-card').forEach(nCard => {
         nCard.onclick = () => {
             const title = nCard.querySelector('.news-title').innerText;
@@ -111,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // Отправка сообщений в Телеграм (Чат)
     const addMessage = (text, type) => {
         if (!chatBody) return;
         const msgDiv = document.createElement('div');
@@ -183,7 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.onkeydown = (e) => { if(e.key === "Escape") closeAll(); };
 
-    // Лонг-поллинг ответов из Телеграм-бота
     const checkTgUpdates = async () => {
         try {
             const r = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/getUpdates?offset=${lastUpdateId + 1}`);
