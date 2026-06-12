@@ -13,10 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const scrollBtn = document.getElementById('scrollBtn');
     
     let lastUpdateId = 0;
-    let sentMessagesIds = []; // Храним ID сообщений этого пользователя
-    let isCooldown = false;   // Флаг задержки
+    let sentMessagesIds = []; 
+    let isCooldown = false;
 
-    // === СКРОЛЛ К НОВОСТЯМ ===
+    // Скролл
     if (scrollBtn) {
         scrollBtn.onclick = () => {
             const newsSection = document.getElementById('news');
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // === 1. ОНЛАЙН С ГОЛОВАМИ ===
+    // Онлайн и головы
     const updateOnline = () => {
         if (!playerCount) return;
 
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateOnline();
     setInterval(updateOnline, 30000);
 
-    // === 2. МОДАЛЬНОЕ ОКНО ===
+    // Модальное окно
     const openModal = (title, description, avatarSrc = null) => {
         const modalUser = document.getElementById('modalUsername');
         const modalAv = document.getElementById('modalAvatar');
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalAv.src = avatarSrc;
                 modalAv.style.display = 'inline-block';
             } else {
-                modalAv.style.display = 'none'; // Убираем картинку для новостей
+                modalAv.style.display = 'none';
             }
         }
         
@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden';
     };
 
-    // Клик по игрокам
     document.querySelectorAll('.card').forEach(card => {
         card.onclick = (e) => {
             if (e.target.closest('a')) return;
@@ -101,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // Клик по массивной карточке новости
     document.querySelectorAll('.massive-card').forEach(nCard => {
         nCard.onclick = () => {
             const title = nCard.querySelector('.news-title').innerText;
@@ -110,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    // === 3. ЧАТ С ПОДДЕРЖКОЙ ===
+    // Чат поддержки
     const addMessage = (text, type) => {
         if (!chatBody) return;
         const msgDiv = document.createElement('div');
@@ -162,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
         chatInput.onkeypress = (e) => { if(e.key === 'Enter') window.sendToTg(); };
     }
 
-    // === 4. ЗАКРЫТИЕ ===
     const closeAll = () => {
         if (modal) modal.classList.remove('active');
         if (chatWin) chatWin.classList.remove('active');
@@ -179,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (modal) modal.onclick = (e) => { if(e.target === modal) closeAll(); };
     document.onkeydown = (e) => { if(e.key === "Escape") closeAll(); };
 
-    // === 5. ПРОВЕРКА ОТВЕТОВ ИЗ ТГ ===
     const checkTgUpdates = async () => {
         try {
             const r = await fetch(`https://api.telegram.org/bot${TG_TOKEN}/getUpdates?offset=${lastUpdateId + 1}`);
